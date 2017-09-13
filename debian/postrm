@@ -1,5 +1,5 @@
 #!/bin/sh
-if flatpak info --system  com.deepin.Calendar/x86_64/master >/dev/null 2>&1; then
-	flatpak uninstall --system com.deepin.Calendar/x86_64/master
+if flatpak info --system  com.deepin.Music/x86_64/master >/dev/null 2>&1; then
+	flatpak uninstall --system com.deepin.Music/x86_64/master
 fi
 exit 0
