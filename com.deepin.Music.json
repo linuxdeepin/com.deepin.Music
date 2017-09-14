@@ -2,7 +2,7 @@
   "app-id": "com.deepin.Music",
   "branch": "3.1.6",
   "runtime": "com.deepin.Platform",
-  "runtime-version": "15.4.1",
+  "runtime-version": "15.5",
   "sdk": "com.deepin.Sdk",
   "command": "deepin-music",
   "separate-locales": false,
