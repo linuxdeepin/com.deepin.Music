@@ -1,0 +1,126 @@
+From 1e8d5635fb4eddfa552276914429b51fcd93b60e Mon Sep 17 00:00:00 2001
+From: Iceyer <me@iceyer.net>
+Date: Thu, 14 Sep 2017 13:39:46 +0800
+Subject: [PATCH] Fix flatpak build
+
+Change-Id: I017d2482024e93cb0e6202a76612736a1debc304
+---
+ libdmusic/libdmusic.pro                            | 12 +++++++++---
+ music-player/install.pri                           |  6 +++---
+ plugin/netease-meta-search/netease-meta-search.pro |  3 ++-
+ vendor/src/dbusextended-qt/src/src.pro             | 12 +++++++++---
+ vendor/src/mpris-qt/src/src.pro                    | 12 +++++++++---
+ 5 files changed, 32 insertions(+), 13 deletions(-)
+
+diff --git a/libdmusic/libdmusic.pro b/libdmusic/libdmusic.pro
+index 9f11c7c9..65077aca 100644
+--- a/libdmusic/libdmusic.pro
++++ b/libdmusic/libdmusic.pro
+@@ -53,8 +53,14 @@ HEADERS +=\
+     playlistmeta.h
+ 
+ unix {
+-    PKGCONFIG += libcue
+-    target.path = /usr/lib
+-    INSTALLS += target
++
++PKGCONFIG += libcue
++isEmpty(PREFIX){
++    target.path = $$[QT_INSTALL_LIBS]
++} else {
++    target.path = $${PREFIX}/lib
++}
++
++INSTALLS += target
+ }
+ 
+diff --git a/music-player/install.pri b/music-player/install.pri
+index dd2ad922..0d882aea 100644
+--- a/music-player/install.pri
++++ b/music-player/install.pri
+@@ -4,13 +4,13 @@ isEmpty(PREFIX){
+ 
+ target.path = $${PREFIX}/bin/
+ 
+-desktop_files.path = /usr/share/applications/
++desktop_files.path = $${PREFIX}/share/applications/
+ desktop_files.files = $$PWD/data/*.desktop
+ 
+-services.path = /usr/share/dbus-1/services
++services.path = $${PREFIX}/share/dbus-1/services
+ services.files = $$PWD/data/*.service
+ 
+-dman.path = /usr/share/dman/
++dman.path = $${PREFIX}/share/dman/
+ dman.files = $$PWD/dman/*
+ 
+ translations.path = $${PREFIX}/share/$${TARGET}/translations
+diff --git a/plugin/netease-meta-search/netease-meta-search.pro b/plugin/netease-meta-search/netease-meta-search.pro
+index 8577a2c4..7a326d3e 100644
+--- a/plugin/netease-meta-search/netease-meta-search.pro
++++ b/plugin/netease-meta-search/netease-meta-search.pro
+@@ -35,7 +35,8 @@ HEADERS += neteasemetasearch.h \
+     neteasemetasearch_global.h \
+     metaanalyzer.h
+ 
+-target.path = /usr/lib/deepin-music/plugins
++target.path = $${PREFIX}/lib/deepin-music/plugins
++
+ INSTALLS += target
+ 
+ DISTFILES += \
+diff --git a/vendor/src/dbusextended-qt/src/src.pro b/vendor/src/dbusextended-qt/src/src.pro
+index 908e250a..e6d522bc 100644
+--- a/vendor/src/dbusextended-qt/src/src.pro
++++ b/vendor/src/dbusextended-qt/src/src.pro
+@@ -34,12 +34,18 @@ INSTALL_HEADERS = \
+     dbusextended.h \
+     dbusextendedabstractinterface.h
+ 
+-target.path = $$[QT_INSTALL_LIBS]
++isEmpty(PREFIX){
++    target.path = $$[QT_INSTALL_LIBS]
++    headers.path = $$[QT_INSTALL_HEADERS]/MprisQt
++} else {
++    target.path = $${PREFIX}/lib
++    headers.path = $${PREFIX}/include/DBusExtended
++}
++
+ headers.files = $$INSTALL_HEADERS
+-headers.path = $$[QT_INSTALL_HEADERS]/DBusExtended
+ prf.files = $${TARGET}.prf
+ prf.path = $$[QMAKE_MKSPECS]/features
+-INSTALLS += target headers prf
++INSTALLS += target headers
+ 
+ QMAKE_PKGCONFIG_LIBDIR = $$target.path
+ QMAKE_PKGCONFIG_INCDIR = $$headers.path
+diff --git a/vendor/src/mpris-qt/src/src.pro b/vendor/src/mpris-qt/src/src.pro
+index 0e43e65d..4b2e9aff 100644
+--- a/vendor/src/mpris-qt/src/src.pro
++++ b/vendor/src/mpris-qt/src/src.pro
+@@ -54,12 +54,18 @@ INSTALL_HEADERS = \
+ OTHER_FILES += org.mpris.MediaPlayer2.xml \
+     org.mpris.MediaPlayer2.Player.xml
+ 
+-target.path = $$[QT_INSTALL_LIBS]
+-headers.files = $$INSTALL_HEADERS
++isEmpty(PREFIX){
++    target.path = $$[QT_INSTALL_LIBS]
++    headers.path = $$[QT_INSTALL_HEADERS]/MprisQt
++} else {
++    target.path = $${PREFIX}/lib
++    headers.path = $${PREFIX}/include/DBusExtended
++}
++
+ headers.path = $$[QT_INSTALL_HEADERS]/MprisQt
+ prf.files = $${TARGET}.prf
+ prf.path = $$[QMAKE_MKSPECS]/features
+-INSTALLS += target headers prf
++INSTALLS += target headers
+ 
+ QMAKE_PKGCONFIG_REQUIRES = Qt5Core Qt5DBus dbusextended-qt5
+ QMAKE_PKGCONFIG_LIBDIR = $$target.path
+-- 
+2.11.0
+

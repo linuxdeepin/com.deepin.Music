@@ -54,8 +54,14 @@
           "branch": "3.1.4"
         },
         {
+          "type": "patch",
+          "path": "0001-Fix-flatpak-build.patch"
+        },
+        {
           "type": "script",
-	  "commands": ["qmake PREFIX=/app"],
+          "commands": [
+                "qmake PREFIX=/app"
+            ],
           "dest-filename": "configure"
         }
       ]
