@@ -51,11 +51,7 @@
       "sources": [{
           "type": "git",
           "url": "https://cr.deepin.io/deepin-music",
-          "branch": "3.1.6"
-        },
-        {
-          "type": "patch",
-          "path": "0001-Fix-flatpak-build.patch"
+          "branch": "0eb1ee3234a635496dd9abbc6c6a2dd60253e10a"
         },
         {
           "type": "script",
