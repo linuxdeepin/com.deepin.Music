@@ -51,7 +51,7 @@
       "sources": [{
           "type": "git",
           "url": "https://cr.deepin.io/deepin-music",
-          "branch": "0eb1ee3234a635496dd9abbc6c6a2dd60253e10a"
+          "branch": "2d86199a688bb738f1981aeca08cd503d6eb46d3"
         },
         {
           "type": "script",
