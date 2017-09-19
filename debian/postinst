@@ -1,4 +1,4 @@
 #!/bin/sh
-flatpak install --system --bundle  /usr/share/deepin-flatpak/app/com.deepin.Music/x86_64/master/bundle
+flatpak install --system --bundle /usr/share/deepin-flatpak/app/com.deepin.Music/x86_64/master/bundle
 rm /usr/share/deepin-flatpak/app/com.deepin.Music/x86_64/master/bundle
 exit 0
