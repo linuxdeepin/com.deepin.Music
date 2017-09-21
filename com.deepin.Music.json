@@ -19,7 +19,8 @@
     /* OpenGL */
     "--filesystem=home",
     "--device=dri",
-    "--own-name=org.mpris.MediaPlayer2.DeepinMusic"
+    "--own-name=org.mpris.MediaPlayer2.DeepinMusic",
+    "--own-name=com.deepin.SingleInstance.deepinmusic"
   ],
   "modules": [
     "org.ffmpeg.FFmpeg.json",
@@ -51,7 +52,7 @@
       "sources": [{
           "type": "git",
           "url": "https://cr.deepin.io/deepin-music",
-          "branch": "2d86199a688bb738f1981aeca08cd503d6eb46d3"
+          "branch": "master"
         },
         {
           "type": "script",
